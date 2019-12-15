@@ -4,6 +4,7 @@ import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
 import Promise from "bluebird";
 import oada from "@oada/cerebral-module/sequences";
+import uuid from "uuid";
 
 let _localPath = "/bookmarks/osc";
 
@@ -55,9 +56,8 @@ export const fetch = sequence("oscs.fetch", [
 			      set(state`oscs.emptyDataSet`, false),
 		      ]),
     false: sequence("fetchOSCsEmptySet", [
-		        () => ( console.log("--> OSCs empty set") ),
 			      set(state`oscs.emptyDataSet`, true)
-		]),
+		       ]),
 	}
 ]);
 
@@ -74,7 +74,6 @@ export const init = sequence("oscs.init", [
 	set(state`oscs.loading`, true),
 	fetch,
 	set(state`oscs.loading`, false),
-	set(state`OSCList.open`, true)
 ]);
 
 export function mapOadaToOscs({ props, state }){
@@ -101,7 +100,7 @@ export const updateOSC = sequence("oscs.updateOSC", [
 ]);
 
 function createOSC({props, state}){
-  let id = state.get('OSCList.current');
+  let id = uuid();
   let oscs = [];
 	state.set(`oscs.records.${id}.token`, "servio");
   if (id !== "none") {
@@ -184,42 +183,42 @@ export const refresh = sequence("oscs.refresh", [
 // OSC Control Sequences (Token Provisioning, Restart ...)
 // ========================================================
 export function updateToken({ props, state }) {
-  let id = state.get('OSCList.current');
+  let id = state.get('oscs.current');
 	if (id !== "none") {
 	  state.set(`oscs.records.${id}.control_signals.token`, "servio");
 	}
 }
 
 export function updateData({ props, state}){
-  let id = state.get(`OSCList.current`);
+  let id = state.get(`oscs.id`);
 	if (id !== "none") {
 	  state.set(`oscs.records.${id}.control_signals.private_data`, "all");
 	}
 }
 
 export function updateGeneratePAC({ props, state}){
-  let id = state.get(`OSCList.current`);
+  let id = state.get(`oscs.id`);
 	if (id !== "none") {
 	  state.set(`oscs.records.${id}.control_signals.generate_pac`, true);
 	}
 }
 
 export function updateInitRA({ props, state}){
-  let id = state.get(`OSCList.current`);
+  let id = state.get(`oscs.id`);
 	if (id !== "none") {
 	  state.set(`oscs.records.${id}.control_signals.init_ra`, true);
 	}
 }
 
 export function updateRestartOSC({ props, state}){
-  let id = state.get(`OSCList.current`);
+  let id = state.get(`oscs.id`);
 	if (id !== "none") {
 	  state.set(`oscs.records.${id}.control_signals.restart`, true);
 	}
 }
 
 export function updateKillOSC({ props, state}){
-  let id = state.get(`OSCList.current`);
+  let id = state.get(`oscs.id`);
 	if (id !== "none") {
 	  state.set(`oscs.records.${id}.control_signals.turnoff`, true);
 	}

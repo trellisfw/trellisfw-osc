@@ -114,7 +114,7 @@ export const init = sequence("pacs.init", [
 	set(state`pacs.loading`, true),
 	fetch,
 	set(state`pacs.loading`, false),
-	set(state`PACList.open`, false)
+	set(state`PACList.open`, true)
 ]);
 
 export function mapOadaToPacs({ props, state }) {
@@ -134,7 +134,6 @@ export function mapOadaToPacs({ props, state }) {
 	}//if
 }//mapOadaToPacs
 
-
 export const updatePAC = sequence("pacs.updatePAC", [
   createPAC,
   buildPACRequest,
@@ -152,7 +151,7 @@ function createPAC({props, state}) {
 }
 
 function buildPACRequest({ props, state }) {
-	let connection_id = state.get("oscs.connection_id");
+	let connection_id = state.get(CONNECTION_ID);
 	let requests = [];
   if (props.pacs[0]){
 		let pac = props.pacs[0];

@@ -36,8 +36,6 @@ const _OPTIONS =  {
 
 export const init = sequence("App.init", [
   () => { console.log("--> app.init");},
-	//setMobile,
-  //getConnectionsFromStorage,
   when(state`Connections.connection_id`),
   {
     true: sequence("autoInitSuccess", [
@@ -52,7 +50,6 @@ export const init = sequence("App.init", [
   }
 ]);
 
-
 export const clearCacheButtonClicked = [
   ({ state, props }) => ({
     connection_id: state.get("Connections.connection_id")
@@ -60,8 +57,3 @@ export const clearCacheButtonClicked = [
   oada.resetCache,
 ];
 
-/*function setMobile({ state }) {
-  let md = new MobileDetect(window.navigator.userAgent);
-  state.set(`App.is_mobile`, md.mobile() !== null);
-}
-*/
