@@ -1,6 +1,6 @@
 {
   "name": "TrellisOSC",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@cerebral/react": "^4.2.0",
@@ -17,7 +17,7 @@
     "styled-components": "^4.4.1"
   },
   "scripts": {
-    "start": "PORT=7776 react-scripts start",
+    "start": "PORT=7000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

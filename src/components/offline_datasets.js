@@ -303,7 +303,7 @@ export const osc_dataset = {
         "pacrandomid2": {}
       }
     }
-  }
+  },
 };
 
 export let pac_template = {
@@ -346,4 +346,84 @@ export let pac_template = {
 				"value": "00534a6ac0c50e40a6f5293a72b8b320e637cb9a998847d19210af3ce7564eb5",
 				"alg": "SHA-256"
 			}
+};
+
+export let osc_data = {
+	0: { title : "Organic Mass Balance", 
+		   label : "OB",
+		   trust_level: "tl3"
+		 },
+	1: { title : "Sustainable Fishing", 
+		   label : "SF",
+		   trust_level: "tl2"
+		 },
+	2: { title : "Sustainability Reporting", 
+		   label : "SR",
+		   trust_level: "tl1"
+		 },
+	3: { title : "Planting Date Reporting", 
+		   label : "DR",
+		   trust_level: "tl1"
+		 },
+	4: { title : "Mass Balance", 
+		   label : "MB",
+		   trust_level: "tl2"
+		 },
+	5: { title : "Organic Coffee", 
+		   label : "OC",
+		   trust_level: "tl3"
+		 },
+	6: { title : "Coffee", 
+		   label : "CF",
+		   trust_level: "tl1"
+		 },
+	7: { title : "Software Module", 
+		   label : "SM",
+		   trust_level: "tl3"
+		 },
+	8: { title : "Software Library", 
+		   label : "SL",
+		   trust_level: "tl3"
+		 },
+	9: { title : "Private Software App", 
+		   label : "PA",
+		   trust_level: "tl2"
+		 }
+};	
+
+
+export let osc_template = {
+      "id": "",
+      "oscid": {
+        "codebase": "massbalance-v1.0.0",
+        "pac": "massbalance-v1.0.0",
+        "definition": "https://github.com/trellisfw/osc-definitions"
+      },
+      "osc_hash": {
+        "value": "cbebb6ce455ec34d361a6c544ed6b0a350fc46113e30a73178da2c8a921e3b93",
+        "alg": "SHA-256"
+      },
+      "label": "MB",
+      "title": "Organic Mass Balance",
+      "date_init": "09.17.2019",
+      "timestamp": "2019-08-14T02:38:32.921Z",
+      "trust_level": "tl3",
+       "organization": {
+        "name": "Bob's Mass Balance"
+      },
+      "control_signals":{
+        "restart": false,
+        "init_ra": false,
+        "turnoff": false,
+        "generate_pac": false,
+        "private_data": "all",
+        "token": "servio"
+      },
+      "generated_pacs": {
+        "pacrandomid1": {},
+        "pacrandomid2": {}
+      },
+      "blockchain_config": {
+        "host": "string"
+      }
 };

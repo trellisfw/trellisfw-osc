@@ -5,6 +5,8 @@ import { state, props } from "cerebral/tags";
 import Promise from "bluebird";
 import oada from "@oada/cerebral-module/sequences";
 import uuid from "uuid";
+import _ from "lodash";
+import { osc_data, osc_template } from "../../components/offline_datasets.js";
 
 let _localPath = "/bookmarks/osc";
 
@@ -93,13 +95,57 @@ export function mapOadaToOscs({ props, state }){
 	}//if
 }//mapOadaToOscs
 
+/**********************************************************
+ Tools
+*********************************************************/
+function getDate(){
+	let today = new Date();
+	let dd = String(today.getDate()).padStart(2, '0');
+	let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	let yyyy = today.getFullYear();
+
+	today = mm + '.' + dd + '.' + yyyy;
+  return today;
+}
+
+/**********************************************************
+ createOSC
+*********************************************************/
+function createOSC({props, state}) {
+  let id = uuid(); 
+  let oscs = [];
+  let _osc = _.cloneDeep(osc_template); 
+
+	let rosc = Math.floor((Math.random() * 10)); 
+	let _osc_data = osc_data[rosc];
+
+	_osc.id          = id;
+	_osc.label       = _osc_data.label;
+	_osc.title       = _osc_data.title;
+	_osc.trust_level = _osc_data.trust_level;
+  _osc.date_init   = getDate();
+	_osc.timestamp   = new Date().getTime();
+	state.set("oscs.osc", _osc);
+	console.log(_osc);
+  oscs.push(_osc);
+  
+	return {oscs: oscs};
+}
+
 export const updateOSC = sequence("oscs.updateOSC", [
-  createOSC,
+  createEditOSC,
   buildOSCRequest,
   oada.put
 ]);
 
-function createOSC({props, state}){
+export const newOSC = sequence("oscs.newOSC", [
+  () => {console.log("--> new OSC");},
+	createOSC,
+  buildOSCRequest,
+  oada.put
+]);
+
+function createEditOSC({props, state}){
   let id = uuid();
   let oscs = [];
 	state.set(`oscs.records.${id}.token`, "servio");
@@ -158,11 +204,8 @@ export const fetchNoWatch = sequence("oscs.fetchNoWatch", [
       set(state`oscs.emptyDataSet`, false),
     ]),
     false: sequence("fetchOscsEmptySetNoWatch", [
-      () => (
-        console.log("--> Oscs empty set no watch")
-      ),
-      set(state`oscs.emptyDataSet`, true),
-    ])
+            set(state`oscs.emptyDataSet`, true),
+           ])
   }
 ]);
 
@@ -178,6 +221,8 @@ export const refresh = sequence("oscs.refresh", [
   set(state`oscs.loading`, false),
   set(props`type`, "oscs")
 ]);
+
+
 
 // ========================================================
 // OSC Control Sequences (Token Provisioning, Restart ...)

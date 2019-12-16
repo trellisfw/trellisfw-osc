@@ -71,9 +71,9 @@ class MenuList extends React.Component {
 					  </MenuItem>
             <MenuItem onClick={() => {
 							this.props.handleMenuListOpen({});
-							this.props.newPAC({});
+							this.props.newOSC({});
 						}}>
-					    New PAC 
+					    Start OSC 
 					  </MenuItem>
           </Menu>
           : null
@@ -99,8 +99,7 @@ export default connect(
     blockchain:         sequences`MenuList.blockchain`,
     trellisRepo:        sequences`MenuList.trellisRepo`,
 		handlePACListOpen:  sequences`PACList.handlePACListOpen`,
-		demoInit:           sequences`demo.init`,
-		newPAC:             sequences`demo.newPAC`
+		newOSC:             sequences`oscs.newOSC`
   },
   withStyles(styles, {withTheme: true})(MenuList)
 );
