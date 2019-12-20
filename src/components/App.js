@@ -25,8 +25,8 @@ class App extends Component {
 			  <>
 					<GlobalStyles />
 			    <Connections />
-			    <PACList />
 			    <ControlList />
+			    <PACList />
 					<footer>
 						Credits:
 						<small>The Open AG Technology and Systems Center (OATS)</small>
