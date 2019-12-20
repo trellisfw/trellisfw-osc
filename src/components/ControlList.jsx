@@ -1,26 +1,71 @@
 // "components/ControlList.jsx"
 import React from "react";
-import Button from "@material-ui/core/Button";
-import CheckedIcon from '@material-ui/icons/AssignmentTurnedIn';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import StorageIcon from '@material-ui/icons/Storage';
+import GeneratePACIcon from '@material-ui/icons/HourglassEmpty';
+import RestartIcon from '@material-ui/icons/RestorePage';
+import TurnoffIcon from '@material-ui/icons/PowerSettingsNew';
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import { useStyles, backColor, backColorList } from "./config.js";
+import { useStyles, backColor } from "./config.js";
+import { green } from '@material-ui/core/colors';
 
-class PACList extends React.Component {
+class ControlList extends React.Component {
 
-  renderPAC( params ) {
-    const { pac, classes } = params;
-		if (pac) {
-			const avaColor = {backgroundColor: backColor[pac.trust_level]};
-			const listColor= {backgroundColor: backColorList[pac.trust_level]};
+  renderOSCControlSignals( params ) {
+    const { osc, classes } = params;
+		if (osc) {
+			const listColor = {backgroundColor: '#666666'};
+			const tokenStyle = { color: green[500], marginLeft: '15px' };
+			const dataStyle = { color: green[500], marginLeft: '15px' };
+			const generatePACStyle = { color: green[500], marginLeft: '15px' };
+			dataStyle.color = '#ffcc66';
+			generatePACStyle.color = '#ffcc66';
+			const restartStyle = { color: '#ffffff', marginLeft: '15px' };
+			const turnoffStyle = { color: '#ffffff', marginLeft: '15px' };
+
 			return (
-				<div key={pac.id}>
+				<div key={osc.id} className={classes.pill} style={listColor}>
+				<VpnKeyIcon style={tokenStyle}/>
+				<StorageIcon style={dataStyle}/>
+				<GeneratePACIcon style={generatePACStyle}/>
+				<RestartIcon style={restartStyle}/>
+				<TurnoffIcon style={turnoffStyle}/>
+				</div>
+			);
+		} else {
+			return null;
+	  }
+	}//renderControlSignals
+
+	render() {
+		const { classes } = this.props;
+
+		return (
+			<div className={!this.props.open ? classes.hidden : classes.icons}>
+        {
+					  Object.keys(this.props.osc || {}).map(osc => {
+						return this.renderOSCControlSignals(
+							{
+								osc:     this.props.osc,
+								classes: classes
+							});
+						})
+				}
+			</div>
+		)
+	}//render
+}
+
+export default connect(
+	{
+		open: state`ControlList.open`,
+		osc: state`ControlList.osc`
+	},
+	withStyles(useStyles, {withTheme: true})(ControlList)
+);
+/*
 					<ListItem className={`${classes.pill}`} style={listColor}
                     key={pac.id}
 				  >
@@ -42,42 +87,4 @@ class PACList extends React.Component {
 						  Verify	
 						</Button>
 					</ListItem>
-				</div>
-			);
-		} else {
-			return null;
-	  }
-	}//renderPAC
-
-	render() {
-		const { classes } = this.props;
-
-		return (
-			<div className={!this.props.open ? classes.hidden : classes.pill}>
-				<List className={classes.pacList}>
-        {
-					Object.keys(this.props.pacs || {}).map(pacid => {
-						return this.renderPAC(
-							{
-								pac:     this.props.pacs[pacid],
-								classes: classes
-							});
-					})
-				}
-				</List>
-			</div>
-		)
-	}//render
-
-}
-
-export default connect(
-	{
-		open: state`PACList.open`,
-		pacs: state`pacs.records`,
-
-		verifySignature:  signal`PACList.verifySignature`
-	},
-	withStyles(useStyles, {withTheme: true})(PACList)
-);
-
+						*/

@@ -6,6 +6,7 @@ import oadaProvider from "@oada/cerebral-provider";
 import App          from "./App";
 import MenuList     from "./MenuList";
 import PACList      from "./PACList";
+import ControlList  from "./ControlList";
 import Connections  from "./Connections";
 import oscs         from "./oscs";
 import pacs         from "./pacs";
@@ -15,6 +16,7 @@ export default Module({
 		App,
 		MenuList,
 		PACList,
+		ControlList,
 		Connections,
 		oscs,
 		pacs,

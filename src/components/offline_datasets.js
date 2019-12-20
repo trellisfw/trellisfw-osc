@@ -391,7 +391,6 @@ export let osc_data = {
 		 }
 };	
 
-
 export let osc_template = {
       "id": "",
       "oscid": {
@@ -416,8 +415,9 @@ export let osc_template = {
         "init_ra": false,
         "turnoff": false,
         "generate_pac": false,
-        "private_data": "all",
-        "token": "servio"
+        "private_data": "",
+				"private_data_path": "",
+        "token": ""
       },
       "generated_pacs": {
         "pacrandomid1": {},

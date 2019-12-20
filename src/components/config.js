@@ -1,6 +1,11 @@
 import { green } from '@material-ui/core/colors';
 
 export const useStyles = theme => ({
+	icons: {
+    '& > span': {
+      margin: theme.spacing(4),
+    },
+  },
 	hidden: {
 	  display: "none"
 	},
@@ -67,7 +72,6 @@ export const backColorGrayList = {
   "tl3": "#1A324B"
 };
 
-
 export const CardEnum = Object.freeze({
              "OSC": "Oblivious Smart Contract",
              "Set": "Settings",
@@ -76,4 +80,11 @@ export const CardEnum = Object.freeze({
              "VerUser": "Verified User",
              "Blockchain": "Blockchain Connected"});
 
-		//backgroundColor: theme.palette.background.paper
+export const ControlSignalsType = Object.freeze({
+             "TOKEN": "token",
+             "DATA": "private_data",
+             "DATAPATH": "private_data_path",
+             "GENERATEPAC": "generate_pac",
+             "RESTART": "restart",
+             "TURNOFF": "turnoff",
+             "INITRA": "init_ra"});

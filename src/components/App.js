@@ -8,6 +8,7 @@ import MenuBar              from './MenuBar';
 import './App.css';
 import Connections          from "./Connections";
 import PACList              from "./PACList";
+import ControlList          from "./ControlList";
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
 					<GlobalStyles />
 			    <Connections />
 			    <PACList />
+			    <ControlList />
 					<footer>
 						Credits:
 						<small>The Open AG Technology and Systems Center (OATS)</small>
