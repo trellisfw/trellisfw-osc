@@ -126,9 +126,10 @@ function createOSC({props, state}) {
   _osc.date_init   = getDate();
 	_osc.timestamp   = new Date().getTime();
 	state.set("oscs.osc", _osc);
+	state.set(`ControlList.osc.${id}`, _osc);
 	console.log(_osc);
   oscs.push(_osc);
-  
+
 	return {oscs: oscs};
 }
 
@@ -219,7 +220,6 @@ export const refresh = sequence("oscs.refresh", [
   set(state`oscs.loading`, true),
   fetchNoWatch,
   set(state`oscs.loading`, false),
-  set(props`type`, "oscs")
 ]);
 
 
