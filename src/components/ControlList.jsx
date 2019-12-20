@@ -16,12 +16,17 @@ class ControlList extends React.Component {
   renderOSCControlSignals( params ) {
     const { osc, classes } = params;
 		if (osc) {
+			console.log(osc);
 			const listColor = {backgroundColor: '#666666'};
 			const tokenStyle = { color: green[500], marginLeft: '15px' };
+			tokenStyle.color = osc.control_signals.token === "" ?
+				  '#ffcc66' : green[500];
 			const dataStyle = { color: green[500], marginLeft: '15px' };
+			dataStyle.color = osc.control_signals.private_data === "" ?
+				  '#ffcc66' : green[500];
 			const generatePACStyle = { color: green[500], marginLeft: '15px' };
-			dataStyle.color = '#ffcc66';
-			generatePACStyle.color = '#ffcc66';
+			generatePACStyle.color = osc.control_signals.private_data === "" ?
+				  '#ffcc66' : green[500];
 			const restartStyle = { color: '#ffffff', marginLeft: '15px' };
 			const turnoffStyle = { color: '#ffffff', marginLeft: '15px' };
 
@@ -45,10 +50,10 @@ class ControlList extends React.Component {
 		return (
 			<div className={!this.props.open ? classes.hidden : classes.icons}>
         {
-					  Object.keys(this.props.osc || {}).map(osc => {
+					  Object.keys(this.props.osc || {}).map(oscid => {
 						return this.renderOSCControlSignals(
 							{
-								osc:     this.props.osc,
+								osc:     this.props.osc[oscid],
 								classes: classes
 							});
 						})
