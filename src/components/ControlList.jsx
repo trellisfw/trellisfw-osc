@@ -1,10 +1,10 @@
 // "components/ControlList.jsx"
 import React from "react";
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import StorageIcon from '@material-ui/icons/Storage';
-import GeneratePACIcon from '@material-ui/icons/HourglassEmpty';
-import RestartIcon from '@material-ui/icons/RestorePage';
-import TurnoffIcon from '@material-ui/icons/PowerSettingsNew';
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import StorageIcon from "@material-ui/icons/Storage";
+import GeneratePACIcon from "@material-ui/icons/HourglassEmpty";
+import RestartIcon from "@material-ui/icons/RestorePage";
+import TurnoffIcon from "@material-ui/icons/PowerSettingsNew";
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { withStyles } from "@material-ui/core/styles";
@@ -13,30 +13,30 @@ import { green } from '@material-ui/core/colors';
 
 class ControlList extends React.Component {
 
-  renderOSCControlSignals( params ) {
+	getColor(value) {
+    return value ? '#ffcc66' : green[500];
+	}
+	renderOSCControlSignals( params ) {
     const { osc, classes } = params;
 		if (osc) {
-			console.log(osc);
 			const listColor = {backgroundColor: '#666666'};
-			const tokenStyle = { color: green[500], marginLeft: '15px' };
-			tokenStyle.color = osc.control_signals.token === "" ?
-				  '#ffcc66' : green[500];
-			const dataStyle = { color: green[500], marginLeft: '15px' };
-			dataStyle.color = osc.control_signals.private_data === "" ?
-				  '#ffcc66' : green[500];
-			const generatePACStyle = { color: green[500], marginLeft: '15px' };
-			generatePACStyle.color = osc.control_signals.private_data === "" ?
-				  '#ffcc66' : green[500];
-			const restartStyle = { color: '#ffffff', marginLeft: '15px' };
-			const turnoffStyle = { color: '#ffffff', marginLeft: '15px' };
+			const basicStyle = { color: green[500], marginLeft: '30px' };
+			const tokenStyle = { color: green[500], marginLeft: '30px' };
+			tokenStyle.color = this.getColor(osc.control_signals.token === "");
+			const dataStyle = { color: green[500], marginLeft: '30px' };
+			dataStyle.color = this.getColor(osc.control_signals.private_data === "");
+			const generatePACStyle = { color: green[500], marginLeft: '30px' };
+			generatePACStyle.color = this.getColor(!osc.control_signals.generate_pac);
+			const restartStyle = { color: '#ffffff', marginLeft: '30px' };
+			const turnoffStyle = { color: '#ffffff', marginLeft: '30px' };
 
 			return (
 				<div key={osc.id} className={classes.pill} style={listColor}>
-				<VpnKeyIcon style={tokenStyle}/>
-				<StorageIcon style={dataStyle}/>
-				<GeneratePACIcon style={generatePACStyle}/>
-				<RestartIcon style={restartStyle}/>
-				<TurnoffIcon style={turnoffStyle}/>
+					<VpnKeyIcon style={tokenStyle}/>
+					<StorageIcon style={dataStyle}/>
+					<GeneratePACIcon style={generatePACStyle}/>
+					<RestartIcon style={restartStyle}/>
+					<TurnoffIcon style={turnoffStyle}/>
 				</div>
 			);
 		} else {
@@ -70,26 +70,3 @@ export default connect(
 	},
 	withStyles(useStyles, {withTheme: true})(ControlList)
 );
-/*
-					<ListItem className={`${classes.pill}`} style={listColor}
-                    key={pac.id}
-				  >
-						<ListItemAvatar>
-							<Avatar style={avaColor}>
-				      {pac.label}
-							</Avatar>
-						</ListItemAvatar>
-						<ListItemText primary={pac.title || null} 
-				                  secondary={pac.timestamp || null} />
-						<Button
-							variant="outlined"
-							color="default"
-				      size="small"
-							className={classes.button}
-							startIcon={<CheckedIcon />}
-				      onClick={this.props.verifySignature}
-						 >
-						  Verify	
-						</Button>
-					</ListItem>
-						*/
