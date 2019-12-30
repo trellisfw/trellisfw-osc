@@ -91,11 +91,11 @@ export function mapOadaToOscs({ props, state }){
 					     state.get(`oada.${connection_id}.bookmarks.osc.${osc}`);
 				if ( currentOSC && currentOSC.id ) {
 					state.set(`oscs.records.${osc}`, oscs[osc]);
-					if(_once) {
+					/*if(_once) {
 						state.set(`oscs.osc.${osc}`, oscs[osc]);
 						state.set(`ControlList.osc.${osc}`, oscs[osc]);
 						_once = false;
-					}
+					}*/
 					let _current_id = state.get(`oscs.current_id`);
 					//console.log(_current_id, currentOSC.id);
 					if(_current_id === currentOSC.id) {
