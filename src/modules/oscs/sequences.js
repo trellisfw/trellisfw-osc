@@ -6,6 +6,7 @@ import Promise from "bluebird";
 import oada from "@oada/cerebral-module/sequences";
 import uuid from "uuid";
 import _ from "lodash";
+import crypto from "crypto";
 import { osc_data, osc_template } from "../../components/offline_datasets.js";
 
 let _localPath = "/bookmarks/osc";
@@ -78,9 +79,11 @@ export const init = sequence("oscs.init", [
 	set(state`oscs.loading`, false),
 ]);
 
+
 export function mapOadaToOscs({ props, state }){
   let connection_id = state.get(CONNECTION_ID);
 	let oscs = state.get(`oada.${connection_id}.bookmarks.osc`);
+	let _once = true;
   if (oscs) {
     return Promise.map(Object.keys(oscs || {}), osc => {
 			if (osc[0] !== "_" && osc !== "oscs") {
@@ -88,6 +91,19 @@ export function mapOadaToOscs({ props, state }){
 					     state.get(`oada.${connection_id}.bookmarks.osc.${osc}`);
 				if ( currentOSC && currentOSC.id ) {
 					state.set(`oscs.records.${osc}`, oscs[osc]);
+					if(_once) {
+						state.set(`oscs.osc.${osc}`, oscs[osc]);
+						state.set(`ControlList.osc.${osc}`, oscs[osc]);
+						_once = false;
+					}
+					let _current_id = state.get(`oscs.current_id`);
+					//console.log(_current_id, currentOSC.id);
+					if(_current_id === currentOSC.id) {
+    				//console.log("-->assigning OSC updates");
+						state.set(`oscs.osc`, oscs[osc]);
+						state.set(`ControlList.osc.${osc}`, oscs[osc]);
+					}
+
 				}
 				return;
 			}
@@ -119,14 +135,19 @@ function createOSC({props, state}) {
 	let rosc = Math.floor((Math.random() * 10)); 
 	let _osc_data = osc_data[rosc];
 
+	let hash = crypto.createHash("sha256");
+
 	_osc.id          = id;
 	_osc.label       = _osc_data.label;
 	_osc.title       = _osc_data.title;
 	_osc.trust_level = _osc_data.trust_level;
   _osc.date_init   = getDate();
 	_osc.timestamp   = new Date().getTime();
+	_osc.osc_hash.value = crypto.createHash("sha256").update(_osc_data.title).digest("hex");
+	console.log(_osc.osc_hash.value);
 	state.set("oscs.osc", _osc);
 	state.set(`ControlList.osc.${id}`, _osc);
+	state.set(`oscs.current_id`, id);
 	console.log(_osc);
   oscs.push(_osc);
 
@@ -216,13 +237,15 @@ export const fetchNoWatch = sequence("oscs.fetchNoWatch", [
  * @type {Primitive}
  *********************************************************/
 export const refresh = sequence("oscs.refresh", [
-  set(state`oscs.connection_id`, props`connection_id`),
   set(state`oscs.loading`, true),
   fetchNoWatch,
   set(state`oscs.loading`, false),
 ]);
 
-
+export const handleWatchUpdate = sequence("oscs.handleWatchUpdate", [
+  () => {console.log("--> oscs.handleWatchUpdate");},
+  refresh
+]);
 
 // ========================================================
 // OSC Control Sequences (Token Provisioning, Restart ...)

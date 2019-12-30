@@ -411,9 +411,10 @@ export let osc_template = {
         "name": "Bob's Mass Balance"
       },
       "control_signals":{
-        "restart": false,
-        "init_ra": false,
-        "turnoff": false,
+				"osc_hash":     false,
+        "restart":      false,
+        "init_ra":      false,
+        "turnoff":      false,
         "generate_pac": false,
         "private_data": "",
 				"private_data_path": "",

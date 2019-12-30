@@ -1,5 +1,6 @@
 // "components/ControlList.jsx"
 import React from "react";
+import RegulatorIcon from "@material-ui/icons/AccountBalance";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import StorageIcon from "@material-ui/icons/Storage";
 import GeneratePACIcon from "@material-ui/icons/HourglassEmpty";
@@ -21,6 +22,8 @@ class ControlList extends React.Component {
 		if (osc) {
 			const listColor = {backgroundColor: '#666666'};
 			const basicStyle = { color: green[500], marginLeft: '30px' };
+			const hashOSCStyle = { color: green[500], marginLeft: '30px' };
+			hashOSCStyle.color = this.getColor(!osc.control_signals.osc_hash);
 			const tokenStyle = { color: green[500], marginLeft: '30px' };
 			tokenStyle.color = this.getColor(osc.control_signals.token === "");
 			const dataStyle = { color: green[500], marginLeft: '30px' };
@@ -32,6 +35,7 @@ class ControlList extends React.Component {
 
 			return (
 				<div key={osc.id} className={classes.pill} style={listColor}>
+					<RegulatorIcon style={hashOSCStyle}/>
 					<VpnKeyIcon style={tokenStyle}/>
 					<StorageIcon style={dataStyle}/>
 					<GeneratePACIcon style={generatePACStyle}/>

@@ -5,7 +5,9 @@ export default Module({
 	state: {
 		records: {},
 		loading: true,
-		connection_id: "localhost"
+		connection_id: "localhost",
+		current_id: "",
+		osc: {}
 	},
   sequences 	
 });
