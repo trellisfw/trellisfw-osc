@@ -29,13 +29,8 @@ const _OPTIONS =  {
 };
 
 
-/*export const init = sequence("App.init", [
-  () => { console.log("--> App.init"); }
-]);
-*/
-
 export const init = sequence("App.init", [
-  () => { console.log("--> app.init");},
+  () => { console.log("--> app.init"); },
   when(state`Connections.connection_id`),
   {
     true: sequence("autoInitSuccess", [

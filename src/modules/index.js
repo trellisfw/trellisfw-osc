@@ -10,6 +10,7 @@ import ControlList  from "./ControlList";
 import Connections  from "./Connections";
 import oscs         from "./oscs";
 import pacs         from "./pacs";
+import privatedatas from "./privatedata";
 
 export default Module({
   modules: {
@@ -20,6 +21,7 @@ export default Module({
 		Connections,
 		oscs,
 		pacs,
+		privatedatas,
 		oada: oadaModule
 	},
 

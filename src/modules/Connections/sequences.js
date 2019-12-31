@@ -8,6 +8,7 @@ import { _OSCS_CONN_ID } from "./config.js";
 /* oscs module */
 import * as oscs from "../oscs/sequences";
 import * as pacs from "../pacs/sequences";
+import * as privatedatas from "../privatedata/sequences";
 
 export let signOut = [
   set(state`${ConnE.token}`,       ''),
@@ -36,6 +37,7 @@ export let init = [
   }),
 	pacs.init,
 	oscs.init,
+	privatedatas.init,
   set(state`${ConnE.open}`, false)
 ];
 
