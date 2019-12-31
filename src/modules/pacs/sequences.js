@@ -4,6 +4,9 @@ import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
 import Promise from "bluebird";
 import oada from "@oada/cerebral-module/sequences";
+import { pac_template } from "../../components/offline_datasets.js";
+import _ from "lodash";
+import uuid from "uuid";
 
 let _localPath = "/bookmarks/pacs";
 
@@ -140,7 +143,7 @@ export const updatePAC = sequence("pacs.updatePAC", [
   oada.put
 ]);
 
-function createPAC({props, state}) {
+/*function createPAC({props, state}) {
   let id = state.get('PACList.current');
 	let pacs = [];
 	if (id !== "none") {
@@ -148,12 +151,37 @@ function createPAC({props, state}) {
 		pacs.push(pac);
 	}
 	return {pacs: pacs};
+}*/
+
+export const newPAC = sequence("pacs.newPAC", [
+  createPAC,
+  buildPACRequest,
+  oada.put,
+	set(state`pacs.new`, false)
+]);
+
+function createPAC({ props, state }) {
+  let pacs = [];
+  let _pac = _.cloneDeep(pac_template);
+	let _osc_id = state.get(`oscs.current_id`);
+	let _osc = state.get(`ControlList.osc.${_osc_id}`);
+  _pac.id = uuid();
+	_pac.label = _osc.label;
+	_pac.title = _osc.title;
+	_pac.trust_level = _osc.trust_level;
+	_pac.oscid = _osc.oscid;
+	_pac.timestamp = _osc.timestamp;
+	_pac.date_init = _osc.date_init;
+
+  pacs.push(_pac);
+
+  return { pacs: pacs };
 }
 
 function buildPACRequest({ props, state }) {
 	let connection_id = state.get(CONNECTION_ID);
 	let requests = [];
-  if (props.pacs[0]){
+  if (props.pacs[0]) {
 		let pac = props.pacs[0];
     let request = {
 			connection_id: connection_id,
@@ -161,7 +189,7 @@ function buildPACRequest({ props, state }) {
 			path:          `${_localPath}/${pac.id}`,
 			tree:          tree
 		};
-		requests.add(request);
+		requests.push(request);
 		return {
 		  connection_id: connection_id,
 			requests:      requests,
