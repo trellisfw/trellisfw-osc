@@ -83,7 +83,7 @@ export const init = sequence("oscs.init", [
 export function mapOadaToOscs({ props, state }){
   let connection_id = state.get(CONNECTION_ID);
 	let oscs = state.get(`oada.${connection_id}.bookmarks.osc`);
-	let _once = true;
+	//let _once = true;
   if (oscs) {
     return Promise.map(Object.keys(oscs || {}), osc => {
 			if (osc[0] !== "_" && osc !== "oscs") {
@@ -134,8 +134,6 @@ function createOSC({props, state}) {
 
 	let rosc = Math.floor((Math.random() * 10)); 
 	let _osc_data = osc_data[rosc];
-
-	let hash = crypto.createHash("sha256");
 
 	_osc.id          = id;
 	_osc.label       = _osc_data.label;

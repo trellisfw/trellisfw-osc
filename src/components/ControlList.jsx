@@ -7,9 +7,9 @@ import GeneratePACIcon from "@material-ui/icons/HourglassEmpty";
 import RestartIcon from "@material-ui/icons/RestorePage";
 import TurnoffIcon from "@material-ui/icons/PowerSettingsNew";
 import { connect } from "@cerebral/react";
-import { state, signal } from "cerebral/tags";
+import { state } from "cerebral/tags";
 import { withStyles } from "@material-ui/core/styles";
-import { useStyles, backColor } from "./config.js";
+import { useStyles } from "./config.js";
 import { green } from '@material-ui/core/colors';
 
 class ControlList extends React.Component {
@@ -21,7 +21,6 @@ class ControlList extends React.Component {
     const { osc, classes } = params;
 		if (osc) {
 			const listColor = {backgroundColor: '#666666'};
-			const basicStyle = { color: green[500], marginLeft: '30px' };
 			const hashOSCStyle = { color: green[500], marginLeft: '30px' };
 			hashOSCStyle.color = this.getColor(!osc.control_signals.osc_hash);
 			const tokenStyle = { color: green[500], marginLeft: '30px' };
