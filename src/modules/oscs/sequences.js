@@ -8,6 +8,7 @@ import uuid from "uuid";
 import _ from "lodash";
 import crypto from "crypto";
 import { osc_data, osc_template } from "../../components/offline_datasets.js";
+import * as privatedatas from "../privatedata/sequences";
 
 let _localPath = "/bookmarks/osc";
 
@@ -242,7 +243,8 @@ export const refresh = sequence("oscs.refresh", [
 
 export const handleWatchUpdate = sequence("oscs.handleWatchUpdate", [
   () => {console.log("--> oscs.handleWatchUpdate");},
-  refresh
+  refresh,
+	privatedatas.compute
 ]);
 
 // ========================================================
