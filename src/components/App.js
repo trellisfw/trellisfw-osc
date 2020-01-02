@@ -10,6 +10,7 @@ import Connections          from "./Connections";
 import PACList              from "./PACList";
 import ControlList          from "./ControlList";
 import ProgressBar          from "./ProgressBar";
+import Header               from "./Header";
 
 class App extends Component {
 
@@ -26,8 +27,9 @@ class App extends Component {
 			  <>
 					<GlobalStyles />
 			    <Connections />
-			    <ControlList />
 			    <ProgressBar />
+			    <Header />
+			    <ControlList />
 			    <PACList />
 					<footer>
 						Credits:

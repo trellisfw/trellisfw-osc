@@ -147,6 +147,7 @@ function createOSC({props, state}) {
 	state.set("oscs.osc", _osc);
 	state.set(`ControlList.osc.${id}`, _osc);
 	state.set(`oscs.current_id`, id);
+	state.set(`Header.open`, true);
 	console.log(_osc);
   oscs.push(_osc);
 
@@ -161,6 +162,7 @@ export const updateOSC = sequence("oscs.updateOSC", [
 
 export const newOSC = sequence("oscs.newOSC", [
   () => {console.log("--> new OSC");},
+	set(state`ProgressBar.open`, true),
 	createOSC,
   buildOSCRequest,
   oada.put

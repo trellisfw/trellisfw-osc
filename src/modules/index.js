@@ -12,6 +12,7 @@ import oscs         from "./oscs";
 import pacs         from "./pacs";
 import privatedatas from "./privatedata";
 import ProgressBar  from "./ProgressBar";
+import Header       from "./Header";
 
 export default Module({
   modules: {
@@ -19,6 +20,7 @@ export default Module({
 		ProgressBar,
 		MenuList,
 		PACList,
+		Header,
 		ControlList,
 		Connections,
 		oscs,
