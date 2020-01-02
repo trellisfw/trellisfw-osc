@@ -1,15 +1,15 @@
 // "components/PACList.jsx"
-import React from "react";
-import Button from "@material-ui/core/Button";
-import CheckedIcon from '@material-ui/icons/AssignmentTurnedIn';
-import { connect } from "@cerebral/react";
+import React             from "react";
+import Button            from "@material-ui/core/Button";
+import CheckedIcon       from "@material-ui/icons/AssignmentTurnedIn";
+import { connect }       from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
+import { withStyles }    from "@material-ui/core/styles";
+import List              from "@material-ui/core/List";
+import ListItem          from "@material-ui/core/ListItem";
+import ListItemText      from "@material-ui/core/ListItemText";
+import ListItemAvatar    from "@material-ui/core/ListItemAvatar";
+import Avatar            from "@material-ui/core/Avatar";
 import { useStyles, backColor, backColorList } from "./config.js";
 
 class PACList extends React.Component {

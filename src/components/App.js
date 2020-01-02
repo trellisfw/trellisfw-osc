@@ -9,6 +9,7 @@ import './App.css';
 import Connections          from "./Connections";
 import PACList              from "./PACList";
 import ControlList          from "./ControlList";
+import ProgressBar          from "./ProgressBar";
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
 					<GlobalStyles />
 			    <Connections />
 			    <ControlList />
+			    <ProgressBar />
 			    <PACList />
 					<footer>
 						Credits:

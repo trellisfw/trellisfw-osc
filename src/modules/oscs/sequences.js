@@ -242,9 +242,11 @@ export const refresh = sequence("oscs.refresh", [
 ]);
 
 export const handleWatchUpdate = sequence("oscs.handleWatchUpdate", [
+	set(state`ProgressBar.open`, true),
   () => {console.log("--> oscs.handleWatchUpdate");},
   refresh,
-	privatedatas.compute
+	privatedatas.compute,
+	set(state`ProgressBar.open`, false)
 ]);
 
 // ========================================================

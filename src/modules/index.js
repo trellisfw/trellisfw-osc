@@ -11,10 +11,12 @@ import Connections  from "./Connections";
 import oscs         from "./oscs";
 import pacs         from "./pacs";
 import privatedatas from "./privatedata";
+import ProgressBar  from "./ProgressBar";
 
 export default Module({
   modules: {
 		App,
+		ProgressBar,
 		MenuList,
 		PACList,
 		ControlList,

@@ -35,9 +35,11 @@ export let init = [
     token:         _TOKEN,
     connection_id: state.get(`${_OSCS_CONN_ID}`),
   }),
+	set(state`ProgressBar.open`, true),
 	pacs.init,
 	oscs.init,
 	privatedatas.init,
+	set(state`ProgressBar.open`, false),
   set(state`${ConnE.open}`, false)
 ];
 
