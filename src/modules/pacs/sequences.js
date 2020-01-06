@@ -138,12 +138,12 @@ export function mapOadaToPacs({ props, state }) {
 }//mapOadaToPacs
 
 export const updatePAC = sequence("pacs.updatePAC", [
-  createPAC,
+  editPAC,
   buildPACRequest,
   oada.put
 ]);
 
-/*function createPAC({props, state}) {
+function editPAC({props, state}) {
   let id = state.get('PACList.current');
 	let pacs = [];
 	if (id !== "none") {
@@ -151,7 +151,7 @@ export const updatePAC = sequence("pacs.updatePAC", [
 		pacs.push(pac);
 	}
 	return {pacs: pacs};
-}*/
+}
 
 export const newPAC = sequence("pacs.newPAC", [
   createPAC,
